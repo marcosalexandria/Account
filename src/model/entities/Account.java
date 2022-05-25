@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.exceptions.LimitException;
+
 public class Account {
 	private Integer number;
 	private String holder;
@@ -11,11 +13,16 @@ public class Account {
 	}
 	
 	public Account(Integer number, String holder, Double balance, Double withdrawLimit) {
-		super();
 		this.number = number;
 		this.holder = holder;
 		this.balance = balance;
 		this.withdrawLimit = withdrawLimit;
+	}
+	
+	public void withdraw(Double amount) {
+		if (amount > withdrawLimit) {
+			throw new LimitException("You cannot withdraw an amount!");
+		}
 	}
 
 	public Integer getNumber() {
