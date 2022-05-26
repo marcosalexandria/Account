@@ -19,10 +19,20 @@ public class Account {
 		this.withdrawLimit = withdrawLimit;
 	}
 	
-	public void withdraw(Double amount) {
+	public Double withdraw(Double amount){
 		if (amount > withdrawLimit) {
-			throw new LimitException("You cannot withdraw an amount!");
+			throw new LimitException("Withdraw error: The amount exceeds withdraw limit");
+		}else if (amount > balance) {
+			throw new LimitException("Withdraw error: Not enough balance");
 		}
+		
+		balance -= amount;
+		return balance;
+	}
+	
+	
+	public void deposit(Double amount) {
+		this.balance += amount;
 	}
 
 	public Integer getNumber() {
